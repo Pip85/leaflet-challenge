@@ -13,3 +13,17 @@ L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?acce
   id: "light-v10",
   accessToken: API_KEY
 }).addTo(myMap);
+
+// Store API path
+var url = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson';
+
+// Connect to API through D3
+d3.json(url).then(function(data) {
+    L.geoJson(data, {
+        style: function(feature) {
+            return {
+                color: "green"
+            };
+        },
+    }).addTo(myMap);
+});
