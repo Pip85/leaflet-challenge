@@ -155,6 +155,8 @@ var tiles = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/
   accessToken: API_KEY
 }).addTo(myMap);
 
+
+
 // Create function to determine marker size based on magnitude
 
 
@@ -165,12 +167,37 @@ var url = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.ge
 
 // Connect to API through D3 and send to createMarkers function
 d3.json(url).then(function(data) {
+
     function getLatLng(coord) {
             var lat = coord[1];
             var lng = coord[0];
             var latlng = L.latLng(lat, lng);
+            var depth = coord[2];
             console.log (latlng);
-            return latlng;
+            return latlng, depth;
+    }    
+    
+    function getColor(colorDepth) {
+        var color = "";
+        if(colorDepth < 10) {
+            color = "blue"
+        }
+        else if (colorDepth <30 && colorDepth >= 10) {
+            color ="green"
+        }
+        else if (colorDepth <50 && colorDepth >= 30) {
+            color ="red"
+        }
+        else if (colorDepth <70 && colorDepth >= 50) {
+            color ="yellow"
+        }
+        else if (colorDepth <90 && colorDepth >= 70) {
+            color ="purple"
+        }        
+        else {
+            color ="orange"
+        }
+        return color;
     }
         
     // function markerSize(magnitude) {
@@ -189,17 +216,24 @@ d3.json(url).then(function(data) {
 
     L.geoJSON(data, {
         // geojsonLayer = (data, {
-        style: function(feature) {
-            return {
-                fillColor: "green",
-                color: "green"         
-            };
-        },
+        // style: function(feature) {
+        //     var color = "";
+        //     if depth < 10) {
+
+        //     }
+        //     return {
+        //         fillColor: "green",
+        //         color: "green"         
+        //     };
+        // },
      
         pointToLayer: function (feature, latlng) {          
             return new L.circleMarker(latlng, {
                 radius: feature.properties.mag*2.5,
-                fillOpacity: .5
+                fillColor: getColor(feature.geometry.coordinates[2]),
+                color: "black",
+                fillOpacity: .5,
+                weight: 1
             });
         },
 
