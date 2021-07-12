@@ -156,15 +156,9 @@ var tiles = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/
 }).addTo(myMap);
 
 // Create function to determine marker size based on magnitude
-function markerSize(magnitude) {
-    return magnitude/4;
-}
 
-var geojsonMarkerOptions = {
-    fillColor: "green",
-    color: "green",
-    fillOpacity: .5,
-}
+
+
 
 // Store API path
 var url = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson';
@@ -177,14 +171,45 @@ d3.json(url).then(function(data) {
             var latlng = L.latLng(lat, lng);
             console.log (latlng);
             return latlng;
-        }
-    
-    L.geoJSON(data, {
-        pointToLayer: function (feature, latlng) {
-            return L.circleMarker(latlng, geojsonMarkerOptions);
-        }
-    }).addTo(myMap);
+    }
         
+    // function markerSize(magnitude) {
+    //     var mag = magnitude.properties.mag/4;        
+    //     return mag;
+    // }
+
+        
+    // var geojsonMarkerOptions = {
+    //     fillColor: "green",
+    //     color: "green",
+    //     fillOpacity: .5              
+    // };
+
+    // console.log(mag)
+
+    L.geoJSON(data, {
+        // geojsonLayer = (data, {
+        style: function(feature) {
+            return {
+                fillColor: "green",
+                color: "green"         
+            };
+        },
+     
+        pointToLayer: function (feature, latlng) {          
+            return new L.circleMarker(latlng, {
+                radius: feature.properties.mag*2.5,
+                fillOpacity: .5
+            });
+        },
+
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup("<h5>" + feature.properties.place + "</h5><hr><h5>" + "Magnitude: " + feature.properties.mag + "</h5><h5>" + "Depth: " + feature.geometry.coordinates[2] + "</h5>"); 
+        }
+    }).addTo(myMap)
+
+    // map.addLayer(geojsonLayer);
+});    
         // style: function (feature) {
     //         return {
     //             fillColor: "green",
@@ -196,4 +221,3 @@ d3.json(url).then(function(data) {
     //     onEachFeature: function(feature, layer) {
     //         layer.bindPopup("<h5>" + feature.properties.place + "</h5><hr><h5>" + "Magnitude: " + feature.properties.mag + "</h5><h5>" + "Depth: " + feature.geometry.coordinates[2] + "</h5>"); 
     // });
- });
