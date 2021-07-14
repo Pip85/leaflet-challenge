@@ -22,6 +22,3 @@ The final piece of the code is to add the legend of colors for each depth scale.
 
 The data pulled for this challenge showed relatively small size and depth throughout the United States as compared to other parts of the world, particularly South America's west coast.  The glaring exception to that is Alaska, which has more activity and variety of depth than even the well-know earthquake centric California.
 
-Take a look at the earthquake activity in July 2021!
-
-![Earthquakes North America](images/EarthquakesNorthAmericaJul21.png)
