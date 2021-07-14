@@ -24,4 +24,4 @@ The data pulled for this challenge showed relatively small size and depth throug
 
 Take a look at the earthquake activity in July 2021!
 
-![Earthquakes North America](images/Earthquakes 07-14-21 North America.png)
+![Earthquakes North America](images/EarthquakesNorthAmericaJul21.png)
