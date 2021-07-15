@@ -18,7 +18,7 @@ Marker colors were also added by assigning colors to each marker based on a loca
 
 Next, popups were added to each marker showing the earthquake location, depth and magnitude.  The popups are visible by clicking on a marker.
 
-The final piece of the code is to add the legend of colors for each depth scale.  This was added to the bottom right of the map.
+The final piece of the code was to add the legend of colors for each depth scale.  This was added to the bottom right of the map.
 
 The data pulled for this challenge showed relatively small size and depth throughout the United States as compared to other parts of the world, particularly South America's west coast.  The glaring exception to that is Alaska, which has more activity and variety of depth than even the well-know earthquake centric California.
 
